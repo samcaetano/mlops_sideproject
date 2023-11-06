@@ -13,7 +13,7 @@ etl_op = component_store.load_component('etl')
 # Define pipeline
 @pipeline(
     pipeline_root=os.path.join(os.getenv('BUCKET'), 'pipeline_root'),
-    name='website-segmentation',
+    name='kf_project',
 )
 def create_pipeline():
     """ Create the execution pipeline flow 
