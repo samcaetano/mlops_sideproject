@@ -1,0 +1,15 @@
+name: Load and extract data
+description: Component to apply ETL in data 
+
+outputs:
+- {name: Output 1, type: Dataset, description: 'Output 1 data.'}
+
+implementation:
+  container:
+    image: URI_TO_DOCKERIMAGE
+    command: [
+      python,
+      main.py,
+      --output_filepath,
+      {outputPath: Output 1},
+    ]
