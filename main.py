@@ -26,5 +26,5 @@ def create_pipeline():
 if __name__ == "__main__":
     Compiler().compile(
        pipeline_func=create_pipeline,
-       package_path="kf_project.json"
+       package_path="kf_pipeline.json"
     )
