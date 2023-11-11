@@ -1,12 +1,11 @@
-name: Load and extract data
-description: Component to apply ETL in data 
-
+name: ETL
+description: Load and apply ETL in data
 outputs:
 - {name: Output 1, type: Dataset, description: 'Output 1 data.'}
 
 implementation:
   container:
-    image: URI_TO_DOCKERIMAGE
+    image: gcr.io/my-project-space-404513/etl
     command: [
       python,
       main.py,
