@@ -1,25 +1,26 @@
 import os
-from kfp.components import ComponentStore
-from kfp.dsl import pipeline
+from dotenv import dotenv_values
+from kfp import components
+from kfp.v2.dsl import pipeline
 from kfp.v2.compiler import Compiler
+from kfp.v2 import dsl
 
-# Load components
-component_store = ComponentStore(local_search_paths=["components"])
-
-# Define Components
-etl_op = component_store.load_component('etl')
+config = dotenv_values('.env')
 
 
 # Define pipeline
 @pipeline(
-    pipeline_root=os.path.join(os.getenv('BUCKET'), 'pipeline_root'),
-    name='kf_project',
+    name='kf-pipeline',
 )
 def create_pipeline():
     """ Create the execution pipeline flow 
     """
-    # Node 1
-    apply_etl = etl_op()
+    # Load file from gcs
+    dsl.importer(
+        artifact_uri = config['URI'],
+        artifact_class = dsl.Dataset,
+        reimport = True,
+    )
 
 
 # Compile pipeline and build json package to deploy in Vertex
