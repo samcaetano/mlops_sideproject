@@ -1,6 +1,4 @@
-import os
 from dotenv import dotenv_values
-from kfp import components
 from kfp.v2.dsl import pipeline
 from kfp.v2.compiler import Compiler
 from kfp.v2 import dsl
