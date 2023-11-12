@@ -1,7 +1,29 @@
 import pandas as pd
+from pathlib import Path
+from argparse import ArgumentParser
+
+def etl(df : pd.DataFrame):
+    """Function to load data and apply transformation to it
+    """
+    print("ETL dataset")
+    
+    # Simple transform
+    df = df.fillna(-1)
+
+    return df
 
 if __name__ == '__main__':
+    parser = ArgumentParser(description='Args for data treatment')
     
-    data = pd.read_csv('data/titanic3.csv')
+    parser.add_argument('--input_filepath')
+    parser.add_argument('--output_filepath')
 
-    print('Loaded data')
+    args = parser.parse_args()
+
+    dataset = pd.read_csv(args.input_filepath)
+    
+    _dataset = etl(dataset)
+
+        # Save output content
+    Path(args.output_filepath).parent.mkdir(parents=True, exist_ok=True)
+    _dataset.to_csv(args.output_filepath, index=False)
