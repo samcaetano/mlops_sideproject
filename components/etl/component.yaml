@@ -1,5 +1,9 @@
 name: ETL
 description: Load and apply ETL in data
+
+inputs:
+- {name: Input 1, type: Dataset, description: 'Input 1 data.'}
+
 outputs:
 - {name: Output 1, type: Dataset, description: 'Output 1 data.'}
 
@@ -9,6 +13,8 @@ implementation:
     command: [
       python,
       main.py,
+      --input_filepath,
+      {inputPath: Input 1},
       --output_filepath,
       {outputPath: Output 1},
     ]
