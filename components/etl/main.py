@@ -14,9 +14,12 @@ def etl(df : pd.DataFrame):
         & (df.columns != 'home.dest')
     df = df.loc[:, f]
 
-    # Label encode text columns
+    # Label encode text columns to one_hot
     df.loc[:, 'sex'] = LabelEncoder().fit_transform(df.sex)
     df.loc[:, 'cabin'] = LabelEncoder().fit_transform(df.cabin)
+    df.loc[:, 'embarked'] = LabelEncoder().fit_transform(df.embarked)
+    df.loc[:, 'ticket'] = LabelEncoder().fit_transform(df.ticket)
+    df.loc[:, 'boat'] = LabelEncoder().fit_transform(df.boat)
 
     # Simple transform
     df = df.fillna(-1)
