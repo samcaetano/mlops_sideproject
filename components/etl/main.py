@@ -1,15 +1,31 @@
 import pandas as pd
+import numpy as np
 from pathlib import Path
 from argparse import ArgumentParser
+from sklearn.preprocessing import LabelEncoder
 
 def etl(df : pd.DataFrame):
     """Function to load data and apply transformation to it
     """
     print("ETL dataset")
+
+    # Define label encoder
+    encoder = LabelEncoder()
     
     # Simple transform
     df = df.fillna(-1)
 
+    # Anonymize data
+    f = (df.columns != 'name') \
+        & (df.columns != 'home.dest')
+
+    df = df.loc[:, f]
+
+    # Label encode text columns
+    df['sex'] = encoder.fit_transform(df.sex)
+    df['cabin'] = encoder.fit_transform(df.cabin)
+
+    # Save gold data
     return df
 
 if __name__ == '__main__':
