@@ -9,21 +9,17 @@ def etl(df : pd.DataFrame):
     """
     print("ETL dataset")
 
-    # Define label encoder
-    encoder = LabelEncoder()
-    
-    # Simple transform
-    df = df.fillna(-1)
-
     # Anonymize data
     f = (df.columns != 'name') \
         & (df.columns != 'home.dest')
-
     df = df.loc[:, f]
 
     # Label encode text columns
-    df['sex'] = encoder.fit_transform(df.sex)
-    df['cabin'] = encoder.fit_transform(df.cabin)
+    df.loc[:, 'sex'] = LabelEncoder().fit_transform(df.sex)
+    df.loc[:, 'cabin'] = LabelEncoder().fit_transform(df.cabin)
+
+    # Simple transform
+    df = df.fillna(-1)
 
     # Save gold data
     return df
