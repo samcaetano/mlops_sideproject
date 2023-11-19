@@ -12,7 +12,8 @@ etl_op = component_store.load_component("etl")
 
 # Define pipeline
 @pipeline(
-    name='kf-pipeline',
+    pipeline_root = config['BUCKET'],
+    name = 'kf-pipeline',
 )
 def create_pipeline():
     """ Create the execution pipeline flow 
@@ -31,6 +32,6 @@ def create_pipeline():
 # Compile pipeline and build json package to deploy in Vertex
 if __name__ == "__main__":
     Compiler().compile(
-       pipeline_func=create_pipeline,
-       package_path="kf_pipeline.json"
+       pipeline_func = create_pipeline,
+       package_path = "kf_pipeline.json"
     )
