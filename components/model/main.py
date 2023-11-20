@@ -43,7 +43,7 @@ def training_model(X, y, cv=5):
     return pipe, cv_results
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description='Args for data treatment')
+    parser = ArgumentParser(description='Args for model training')
     
     parser.add_argument('--input_filepath')
     parser.add_argument('--output_model_filepath')
