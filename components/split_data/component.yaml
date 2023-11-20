@@ -1,0 +1,29 @@
+name: Split data
+description: Split data into train and test samples
+
+inputs:
+- {name: Input 1, type: Dataset, description: 'Input 1 gold data.'}
+
+outputs:
+- {name: x_train, type: Model, description: 'Train set of the features.'}
+- {name: x_test, type: Metrics, description: 'Test set of the features.'}
+- {name: y_train, type: Model, description: 'Train set of the target.'}
+- {name: y_test, type: Metrics, description: 'Test set of the target.'}
+
+implementation:
+  container:
+    image: gcr.io/my-project-space-404513/split_data
+    command: [
+      python,
+      main.py,
+      --gold_data,
+      {inputPath: Input 1},
+      --x_train,
+      {outputPath: x_train},
+      --x_test,
+      {outputPath: x_test},
+      --y_train,
+      {outputPath: y_train},
+      --y_test,
+      {outputPath: y_test},
+    ]
