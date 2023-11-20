@@ -1,16 +1,16 @@
 from dotenv import dotenv_values
-from kfp.v2.dsl import pipeline
-from kfp.v2.compiler import Compiler
-from kfp.components import ComponentStore
-from kfp.v2 import dsl
+from kfp.dsl import pipeline
+from kfp.compiler import Compiler
+from kfp.components import load_component_from_file
+from kfp import dsl
 
 config = dotenv_values('.env')
 
 # Load components
-component_store = ComponentStore(local_search_paths=["components"])
-etl_op = component_store.load_component("etl")
-split_data_op = component_store.load_component("split_data")
-train_model_op = component_store.load_component("model")
+# component_store = ComponentStore(local_search_paths=["components"])
+etl_op = load_component_from_file("components/etl/component.yaml")
+split_data_op = load_component_from_file("components/split_data/component.yaml")
+train_model_op = load_component_from_file("components/model/component.yaml")
 
 # Define pipeline
 @pipeline(
@@ -39,8 +39,8 @@ def create_pipeline():
 
     # Train on training set
     train_model_op(
-        x_train = split_data.outputs['x_train'],
-        y_train = split_data.outputs['y_train'],
+        input_1 = split_data.outputs['x_train'],
+        input_2 = split_data.outputs['y_train'],
     )
 
 
