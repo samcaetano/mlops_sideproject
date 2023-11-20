@@ -5,10 +5,10 @@ inputs:
 - {name: Input 1, type: Dataset, description: 'Input 1 gold data.'}
 
 outputs:
-- {name: x_train, type: Model, description: 'Train set of the features.'}
-- {name: x_test, type: Metrics, description: 'Test set of the features.'}
-- {name: y_train, type: Model, description: 'Train set of the target.'}
-- {name: y_test, type: Metrics, description: 'Test set of the target.'}
+- {name: x_train, type: Dataset, description: 'Train set of the features.'}
+- {name: x_test, type: Dataset, description: 'Test set of the features.'}
+- {name: y_train, type: Dataset, description: 'Train set of the target.'}
+- {name: y_test, type: Dataset, description: 'Test set of the target.'}
 
 implementation:
   container:
