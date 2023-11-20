@@ -3,6 +3,7 @@ description: Train model pipeline
 
 inputs:
 - {name: Input 1, type: Dataset, description: 'Input 1 data.'}
+- {name: Input 2, type: Dataset, description: 'Input 2 data.'}
 
 outputs:
 - {name: Output 1, type: Model, description: 'Output 1 model.'}
@@ -16,8 +17,10 @@ implementation:
       main.py,
       --input_filepath,
       {inputPath: Input 1},
+      --input_target_filepath,
+      {inputPath: Input 2},
       --output_model_filepath,
       {outputPath: Output 1},
       --output_results_filepath,
-      {outputPath: Output 2}
+      {outputPath: Output 2},
     ]

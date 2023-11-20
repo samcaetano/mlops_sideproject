@@ -46,6 +46,7 @@ if __name__ == '__main__':
     parser = ArgumentParser(description='Args for model training')
     
     parser.add_argument('--input_filepath')
+    parser.add_argument('--input_target_filepath')
     parser.add_argument('--output_model_filepath')
     parser.add_argument('--output_results_filepath')
 
@@ -53,10 +54,11 @@ if __name__ == '__main__':
 
     # Read gold data to train model
     data = pd.read_csv(args.input_filepath)
+    target = pd.read_csv(args.input_target_filepath)
 
     # Split content in training features and target
     X = data.loc[:, (data.columns != 'survived')]
-    y = data.survived
+    y = target
 
     # Train model pipeline
     model, cv_results = training_model(X, y)
