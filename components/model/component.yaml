@@ -1,0 +1,23 @@
+name: Model
+description: Train model pipeline
+
+inputs:
+- {name: Input 1, type: Dataset, description: 'Input 1 data.'}
+
+outputs:
+- {name: Output 1, type: Model, description: 'Output 1 model.'}
+- {name: Output 2, type: Metrics, description: 'Output 2 metrics.'}
+
+implementation:
+  container:
+    image: gcr.io/my-project-space-404513/model
+    command: [
+      python,
+      main.py,
+      --input_filepath,
+      {inputPath: Input 1},
+      --output_model_filepath,
+      {outputPath: Output 1},
+      --output_results_filepath,
+      {outputPath: Output 2}
+    ]
