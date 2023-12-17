@@ -1,8 +1,9 @@
 from dotenv import dotenv_values
-from kfp.dsl import pipeline
+# from kfp.dsl import pipeline
 from kfp.compiler import Compiler
 from kfp.components import load_component_from_file
 from kfp import dsl
+from google.cloud import aiplatform
 
 config = dotenv_values('.env')
 
@@ -13,7 +14,7 @@ split_data_op = load_component_from_file("components/split_data/component.yaml")
 train_model_op = load_component_from_file("components/model/component.yaml")
 
 # Define pipeline
-@pipeline(
+@dsl.pipeline(
     pipeline_root = config['BUCKET'],
     name = 'kf-pipeline',
 )
@@ -47,7 +48,17 @@ def create_pipeline():
 
 # Compile pipeline and build json package to deploy in Vertex
 if __name__ == "__main__":
+    aiplatform.init(location=config['LOCATION'])
+
     Compiler().compile(
        pipeline_func = create_pipeline,
        package_path = "kf_pipeline.json"
     )
+
+    job = aiplatform.PipelineJob(
+        display_name = 'my_custom_vertex_pipeline',
+        template_path='kf_pipeline.json',
+        pipeline_root = 'gs://'+config['BUCKET'],
+    )
+
+    job.submit()
